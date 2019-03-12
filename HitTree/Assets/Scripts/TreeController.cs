@@ -37,7 +37,11 @@ public class TreeController : MonoBehaviour
     public void HitTree()
     {
         Destroy(logList.Dequeue());
-        CreateLog();
+        for (int i = 0; i < logPoints.Length - 1; i++)
+        {
+            
+        }
+        logList.Enqueue(Instantiate(log, logPoints[4]));
     }
 
     private void CreateLog()
