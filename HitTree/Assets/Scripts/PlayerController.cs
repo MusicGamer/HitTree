@@ -43,13 +43,20 @@ public class PlayerController : MonoBehaviour
             if (Input.mousePosition.x < halfSreenSize)
             {
                 transform.position = pos[0].position;
-                transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+                Hit();
             }
             else if (Input.mousePosition.x > halfSreenSize)
             {
                 transform.position = pos[1].position;
-                transform.rotation = new Quaternion(0, -180, 0, 0);
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+                Hit();
             }
         }
+    }
+
+    private void Hit()
+    {
+        TreeController.Instance.HitTree();
     }
 }
