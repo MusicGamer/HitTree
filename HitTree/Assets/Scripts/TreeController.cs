@@ -5,7 +5,7 @@ using UnityEngine;
 public class TreeController : MonoBehaviour
 {
     public static TreeController Instance;
-    public GameObject log;
+    public GameObject[] logs;
     private Queue<GameObject> logList = new Queue<GameObject>();
     public Transform[] logPoints;
 
@@ -16,7 +16,6 @@ public class TreeController : MonoBehaviour
             Destroy(gameObject);
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -24,7 +23,7 @@ public class TreeController : MonoBehaviour
     {
         for (int i = 0; i < logPoints.Length; i++)
         {
-            logList.Enqueue(Instantiate(log, logPoints[i]));
+            logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], logPoints[i]));
         }
     }
 
@@ -34,18 +33,38 @@ public class TreeController : MonoBehaviour
             
     }
 
-    public void HitTree()
+    public void HitTree(bool side)
     {
-        Destroy(logList.Dequeue());
-        for (int i = 0; i < logPoints.Length - 1; i++)
+        if (CheckBranch(side))
         {
-            
+            return;
         }
-        logList.Enqueue(Instantiate(log, logPoints[4]));
+        Destroy(logList.Dequeue());
+        GameController.Instance.UpScore(1);
+        int counter = 0;
+        foreach (var item in logList)
+        {
+            item.transform.position = logPoints[counter].position;
+            counter += 1;
+        }
+        logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], logPoints[4]));
+        CheckBranch(side);
     }
 
-    private void CreateLog()
+    private bool CheckBranch(bool side)
     {
-
+        if (side && logList.Peek().tag == "RightBranch")
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+            GameController.Instance.EndScreen();
+            return true;
+        }
+        else if (!side && logList.Peek().tag == "LeftBranch")
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+            GameController.Instance.EndScreen();
+            return true;
+        }
+        return false;
     }
 }

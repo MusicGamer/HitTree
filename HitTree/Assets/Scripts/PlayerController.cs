@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private Touch touch;
     private float halfSreenSize;
+    private bool side;
 
     private void Awake()
     {
@@ -44,19 +45,14 @@ public class PlayerController : MonoBehaviour
             {
                 transform.position = pos[0].position;
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
-                Hit();
+                TreeController.Instance.HitTree(false);
             }
             else if (Input.mousePosition.x > halfSreenSize)
             {
                 transform.position = pos[1].position;
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
-                Hit();
+                TreeController.Instance.HitTree(true);
             }
         }
-    }
-
-    private void Hit()
-    {
-        TreeController.Instance.HitTree();
     }
 }
