@@ -22,17 +22,20 @@ public class GameController : MonoBehaviour
     public Slider timeBar;
     public Text scoreText;
     public TextMeshProUGUI finalText;
-    public float maxTime = 100f;
+    public float maxTime;
     private int score = 0;
     private float time;
     private float regresSpeed = 1f;
-    private float incriseTime = 2f;
+    private float incriseTime;
     private bool startGame;
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1;
+        maxTime = GameData.maxTim;
+        Debug.Log(maxTime);
+        incriseTime = GameData.incriseTime;
         startGame = false;
         scoreText.text = score.ToString();
         time = maxTime;
@@ -53,6 +56,11 @@ public class GameController : MonoBehaviour
         {
             time -= regresSpeed * Time.deltaTime;
             timeBar.value = time / maxTime;
+
+            if (time <= 0)
+            {
+                EndScreen();
+            }
         }
     }
 
