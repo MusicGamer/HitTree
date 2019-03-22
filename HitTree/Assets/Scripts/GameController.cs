@@ -26,16 +26,16 @@ public class GameController : MonoBehaviour
     private int score = 0;
     private float time;
     private float regresSpeed = 1f;
-    private float incriseTime;
+    private float increaseTime;
     private bool startGame;
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1;
-        maxTime = GameData.maxTim;
+        maxTime = GameData.maxTime;
         Debug.Log(maxTime);
-        incriseTime = GameData.incriseTime;
+        increaseTime = GameData.increaseTime;
         startGame = false;
         scoreText.text = score.ToString();
         time = maxTime;
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
 
     public void UpScore(int value)
     {
-        time = Mathf.Min(time + incriseTime, maxTime);
+        time = Mathf.Min(time + increaseTime, maxTime);
         score += value;
         regresSpeed = score;
         scoreText.text = score.ToString();
@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour
 
     public void EndScreen()
     {
+        GameData.coins += score;
         finalText.text = scoreText.text;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;

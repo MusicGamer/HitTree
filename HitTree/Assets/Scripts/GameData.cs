@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class GameData
 {
-    public static float maxTim = 100f;
-    public static float incriseTime = 2f;
+    public static float maxTime = 100f;
+    public static float increaseTime = 2f;
+    public static int coins = 0;
 }
