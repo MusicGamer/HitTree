@@ -7,7 +7,8 @@ public class TreeController : MonoBehaviour
     public static TreeController Instance;
     public GameObject[] logs;
     private Queue<GameObject> logList = new Queue<GameObject>();
-    public Transform[] logPoints;
+
+    private int maxLogs = 10;
 
     private void Awake()
     {
@@ -21,9 +22,9 @@ public class TreeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < logPoints.Length; i++)
+        for (int i = 0; i < maxLogs; i++)
         {
-            logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], logPoints[i]));
+            logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], new Vector2(transform.position.x, transform.position.y + i), Quaternion.identity));
         }
     }
 
@@ -44,24 +45,22 @@ public class TreeController : MonoBehaviour
         int counter = 0;
         foreach (var item in logList)
         {
-            item.transform.position = logPoints[counter].position;
+            item.transform.position = new Vector2(transform.position.x, transform.position.y + counter);
             counter += 1;
         }
-        logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], logPoints[4]));
+        logList.Enqueue(Instantiate(logs[Random.Range(0, logs.Length)], new Vector2(transform.position.x, transform.position.y + maxLogs - 1), Quaternion.identity));
         CheckBranch(side);
     }
 
     private bool CheckBranch(bool side)
     {
         if (side && logList.Peek().tag == "RightBranch")
-        {
-            Destroy(GameObject.FindGameObjectWithTag("Player"));
+        {           
             GameController.Instance.EndScreen();
             return true;
         }
         else if (!side && logList.Peek().tag == "LeftBranch")
         {
-            Destroy(GameObject.FindGameObjectWithTag("Player"));
             GameController.Instance.EndScreen();
             return true;
         }

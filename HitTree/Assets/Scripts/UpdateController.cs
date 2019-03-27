@@ -12,27 +12,24 @@ public class UpdateController : MonoBehaviour
     public TextMeshProUGUI priceMaxTimeText;
     public TextMeshProUGUI priceIncreaseTimeText;
 
-    private int priceMaxTime = 10;
-    private int priceIncreaseTime = 10;
-
     // Start is called before the first frame update
     void Start()
     {
         maxTimeText.text = GameData.maxTime.ToString();
         increaseTimeText.text = GameData.increaseTime.ToString();
         coinsText.text = GameData.coins.ToString();
-        priceMaxTimeText.text = priceMaxTime.ToString();
-        priceIncreaseTimeText.text = priceIncreaseTime.ToString();
+        priceMaxTimeText.text = GameData.priceMaxTime.ToString();
+        priceIncreaseTimeText.text = GameData.priceIncreaseTime.ToString();
     }   
 
     public void UpMaxTime()
     {
-        if (GameData.coins >= priceMaxTime)
+        if (GameData.coins >= GameData.priceMaxTime)
         {
-            GameData.coins -= priceMaxTime;
-            priceMaxTime *= 2;
+            GameData.coins -= GameData.priceMaxTime;
+            GameData.priceMaxTime *= 2;
             GameData.maxTime += 10f;
-            priceMaxTimeText.text = priceMaxTime.ToString();
+            priceMaxTimeText.text = GameData.priceMaxTime.ToString();
             maxTimeText.text = GameData.maxTime.ToString();
             coinsText.text = GameData.coins.ToString();
         }    
@@ -40,12 +37,12 @@ public class UpdateController : MonoBehaviour
 
     public void UpIncreaseTime()
     {
-        if (GameData.coins >= priceIncreaseTime)
+        if (GameData.coins >= GameData.priceIncreaseTime)
         {
-            GameData.coins -= priceIncreaseTime;
-            priceIncreaseTime *= 2;
+            GameData.coins -= GameData.priceIncreaseTime;
+            GameData.priceIncreaseTime *= 2;
             GameData.increaseTime += 3f;
-            priceIncreaseTimeText.text = priceIncreaseTime.ToString();
+            priceIncreaseTimeText.text = GameData.priceIncreaseTime.ToString();
             increaseTimeText.text = GameData.increaseTime.ToString();
             coinsText.text = GameData.coins.ToString();
         }      

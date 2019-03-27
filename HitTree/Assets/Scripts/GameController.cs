@@ -34,7 +34,6 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1;
         maxTime = GameData.maxTime;
-        Debug.Log(maxTime);
         increaseTime = GameData.increaseTime;
         startGame = false;
         scoreText.text = score.ToString();
@@ -52,7 +51,7 @@ public class GameController : MonoBehaviour
                 startGame = true;
             }
         }
-        else
+        else if (Time.timeScale != 0f)
         {
             time -= regresSpeed * Time.deltaTime;
             timeBar.value = time / maxTime;
@@ -74,7 +73,12 @@ public class GameController : MonoBehaviour
 
     public void EndScreen()
     {
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
         GameData.coins += score;
+        if (score > GameData.bestScore)
+        {
+            GameData.bestScore = score;
+        }
         finalText.text = scoreText.text;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
