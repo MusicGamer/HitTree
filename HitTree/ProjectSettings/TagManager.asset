@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - RightBranch
+  - LeftBranch
   layers:
   - Default
   - TransparentFX

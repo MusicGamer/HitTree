@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     }
 
     public Slider timeBar;
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI finalText;
     public float maxTime;
     private int score = 0;
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
         if (score > GameData.bestScore)
         {
             GameData.bestScore = score;
-        }
+        }   
         finalText.text = scoreText.text;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
