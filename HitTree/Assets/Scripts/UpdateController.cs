@@ -28,7 +28,7 @@ public class UpdateController : MonoBehaviour
         {
             GameData.coins -= GameData.priceMaxTime;
             GameData.priceMaxTime *= 2;
-            GameData.maxTime += 10f;
+            GameData.maxTime += 100f;
             priceMaxTimeText.text = GameData.priceMaxTime.ToString();
             maxTimeText.text = GameData.maxTime.ToString();
             coinsText.text = GameData.coins.ToString();
@@ -41,7 +41,7 @@ public class UpdateController : MonoBehaviour
         {
             GameData.coins -= GameData.priceIncreaseTime;
             GameData.priceIncreaseTime *= 2;
-            GameData.increaseTime += 3f;
+            GameData.increaseTime += 10f;
             priceIncreaseTimeText.text = GameData.priceIncreaseTime.ToString();
             increaseTimeText.text = GameData.increaseTime.ToString();
             coinsText.text = GameData.coins.ToString();

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public Transform[] pos = new Transform[2];
+    private AudioManager audioManager;
 
     private Touch touch;
     private float halfSreenSize;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //anim = (Animator)GetComponent(typeof(Animator));
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
                 transform.position = pos[0].position;
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
                 anim.Play("CharacterHit", -1, 0f);
+                audioManager.Play("TreeHit");
                 TreeController.Instance.HitTree(false);
             }
             else if (Input.mousePosition.x > halfSreenSize)
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
                 transform.position = pos[1].position;
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
                 anim.Play("CharacterHit", -1, 0f);
+                audioManager.Play("TreeHit");
                 TreeController.Instance.HitTree(true);
             }
         }

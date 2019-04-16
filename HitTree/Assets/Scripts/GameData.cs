@@ -6,7 +6,7 @@ public class GameData : MonoBehaviour
 {
     public static GameData Instance;
     public static float maxTime = 100f;
-    public static float increaseTime = 2f;
+    public static float increaseTime = 10f;
     public static int coins = 0;
     public static int priceMaxTime = 10;
     public static int priceIncreaseTime = 10;
@@ -28,6 +28,7 @@ public class GameData : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }      
         DontDestroyOnLoad(gameObject);
     }
